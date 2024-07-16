@@ -12,8 +12,6 @@ services:
       - DB_NAME=seopanel
       - DB_USER=seopanel
       - DB_PASS=seopanelpass
-    volumes:
-      - seopanel_data:/var/www/html
     depends_on:
       - db
 
@@ -29,5 +27,4 @@ services:
       - db_data:/var/lib/mysql
 
 volumes:
-  seopanel_data:
   db_data:
