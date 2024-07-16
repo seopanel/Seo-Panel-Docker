@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  seopanel:
+    image: seopanel/seopanel:1.0.0
+    container_name: seopanel
+    ports:
+      - "8080:80"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_NAME=seopanel
+      - DB_USER=seopanel
+      - DB_PASS=seopanelpass
+    volumes:
+      - seopanel_data:/var/www/html
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    container_name: seopanel_db
+    environment:
+      - MYSQL_DATABASE=seopanel
+      - MYSQL_USER=seopanel
+      - MYSQL_PASSWORD=seopanelpass
+      - MYSQL_ROOT_PASSWORD=rootpass
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  seopanel_data:
+  db_data:

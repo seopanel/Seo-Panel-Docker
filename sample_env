@@ -1,0 +1,5 @@
+DB_HOST=seopanel_db
+DB_NAME=seopanel
+DB_USER=seopanel
+DB_PASS=seopanelpass
+DB_PORT=3306
