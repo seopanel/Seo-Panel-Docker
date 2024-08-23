@@ -1,0 +1,46 @@
+FROM php:8.1.0-apache
+
+RUN a2enmod rewrite
+
+# Enable SSL module for Apache
+RUN a2enmod ssl
+
+# Install necessary PHP extensions
+RUN apt-get update && apt-get install -y \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install gd mysqli pdo pdo_mysql
+	
+# Set the working directory
+WORKDIR /var/www/html
+
+# Copy the current directory contents into the container
+COPY ./seopanel /var/www/html/
+
+# Copy SSL certificates (assuming you have them)
+COPY ./vhosts/server.crt /etc/ssl/certs/server.crt
+COPY ./vhosts/server.key /etc/ssl/private/server.key
+
+
+# Remove the existing default-ssl.conf if it's a file or symlink
+RUN if [ -e /etc/apache2/sites-enabled/default-ssl.conf ]; then \
+    rm /etc/apache2/sites-enabled/default-ssl.conf; \
+fi
+
+COPY ./vhosts/default-ssl.conf /etc/apache2/sites-enabled/default-ssl.conf
+
+# Enable default SSL site or your custom configuration
+RUN a2ensite default-ssl
+
+# Set the correct permissions
+RUN chown -R www-data:www-data /var/www/html
+RUN chmod 666 /var/www/html/config/sp-config.php
+RUN chmod -R 777 /var/www/html/tmp/
+
+# Expose ports 80 and 443
+EXPOSE 80 443
+
+# Restart Apache to apply changes
+RUN service apache2 restart

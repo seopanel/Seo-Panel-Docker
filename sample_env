@@ -1,5 +1,5 @@
-DB_HOST=seopanel_db
-DB_NAME=seopanel
-DB_USER=seopanel
-DB_PASS=seopanelpass
-DB_PORT=3306
+ MYSQL_DB_HOST=db
+ MYSQL_DATABASE=seopanel
+ MYSQL_USER=seopanel
+ MYSQL_PASSWORD=seopanelpass
+ MYSQL_ROOT_PASSWORD=rootpass
