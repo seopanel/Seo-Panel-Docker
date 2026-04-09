@@ -1,5 +1,5 @@
 NS = seopanel
-VERSION ?= 5.1.0
+VERSION ?= 6.0.0
 
 REPO = seopanel
 
