@@ -77,6 +77,6 @@ docker-compose up -d
 Instead of building locally, you can pull the pre-built image directly:
 
 ```bash
-docker pull seopanel/seopanel:6.0.0
+docker pull seopanel/seopanel:7.0.0
 docker-compose up -d
 ```
